@@ -1,6 +1,6 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: Nerutal Inspect
+description: Action to trigger an automated, AI powered, code review
+author: Neural Inspect
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
@@ -9,10 +9,12 @@ branding:
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  GithubToken:
+    description: The token used to connect to GitHub
     required: true
-    default: '1000'
+  ApiKey:
+    description: Your Neural Inspect API key
+    required: true
 
 # Define your outputs here.
 outputs:
