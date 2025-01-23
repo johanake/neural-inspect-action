@@ -9,6 +9,7 @@ import axios from 'axios'
 
 async function run() {
   try {
+    core.info('Starting Action!')
     //const githubToken = core.getInput('github_token', { required: true })
     const apiKey = core.getInput('api_key', { required: true })
     const context = github.context
