@@ -1,27 +1,38 @@
 import * as core from '@actions/core'
-import { wait } from './wait.js'
+import * as github from '@actions/github'
+import axios from 'axios'
 
-/**
- * The main function for the action.
- *
- * @returns Resolves when the action is complete.
- */
-export async function run(): Promise<void> {
+async function run() {
   try {
-    const ms: string = '10'
+    core.info('Starting Action!')
+    //const githubToken = core.getInput('github_token', { required: true })
+    const apiKey = core.getInput('api_key', { required: true })
+    const context = github.context
+    const { owner, repo } = context.repo
+    const pullRequestNumber = context.payload.pull_request?.number
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    core.info(`Found PR with number: ${context.payload.pull_request?.number}`)
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const payload = {
+      gitHub: {
+        owner,
+        repository: repo,
+        pullRequestNumber
+      },
+      apiKey
+    }
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
-  } catch (error) {
-    // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
+    const response = await axios.post(
+      'http://api.neuralinspect.com/smart-review',
+      payload
+    )
+
+    core.info(`Request sent successfully. Status: ${response.status}`)
+    core.setOutput('response', JSON.stringify(response.data))
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    core.setFailed(error.message)
   }
 }
+
+run()
