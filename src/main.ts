@@ -14,7 +14,6 @@ async function run() {
     core.info(`Found PR with number: ${context.payload.pull_request?.number}`)
     core.info(`Github token: ${githubToken}`)
 
-
     const payload = {
       gitHub: {
         owner,
