@@ -5,13 +5,15 @@ import axios from 'axios'
 async function run() {
   try {
     core.info('Starting Action!')
-    //const githubToken = core.getInput('github_token', { required: true })
+    const githubToken = core.getInput('github_token', { required: true })
     const apiKey = core.getInput('api_key', { required: true })
     const context = github.context
     const { owner, repo } = context.repo
     const pullRequestNumber = context.payload.pull_request?.number
 
     core.info(`Found PR with number: ${context.payload.pull_request?.number}`)
+    core.info(`Github token: ${githubToken}`)
+
 
     const payload = {
       gitHub: {
