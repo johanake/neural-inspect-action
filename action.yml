@@ -9,10 +9,10 @@ branding:
 
 # Define your inputs here.
 inputs:
-  GithubToken:
+  github_token:
     description: The token used to connect to GitHub
     required: true
-  ApiKey:
+  api_key:
     description: Your Neural Inspect API key
     required: true
 
