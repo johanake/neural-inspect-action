@@ -1,3 +1,5 @@
+import * as core from '@actions/core'
+
 /**
  * Waits for a number of milliseconds.
  *
@@ -6,7 +8,7 @@
  */
 export async function wait(milliseconds: number): Promise<string> {
   return new Promise((resolve) => {
-    console.log('hello')
+    core.info('hello')
     if (isNaN(milliseconds)) throw new Error('milliseconds is not a number')
 
     setTimeout(() => resolve('done!'), milliseconds)
