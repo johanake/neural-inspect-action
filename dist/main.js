@@ -50230,6 +50230,7 @@ async function run() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (error) {
+        coreExports.error('Action failed!');
         coreExports.setFailed(error.message);
     }
 }
