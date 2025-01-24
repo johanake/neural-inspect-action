@@ -3,7 +3,7 @@
   "description": "GitHub Actions TypeScript template",
   "version": "0.0.0",
   "author": "",
-  "type": "module",
+  "type": "commonjs",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",
   "repository": {
