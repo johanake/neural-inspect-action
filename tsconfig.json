@@ -2,9 +2,14 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "./dist"
+    "module": "ESNext", // Ensures the output uses ES module syntax
+    "target": "ESNext", // Or another version like ES2020
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "esModuleInterop": true, // Helps with compatibility between CommonJS and ES modules
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
   },
   "exclude": ["__fixtures__", "__tests__", "coverage", "dist", "node_modules"],
   "include": ["src"]
