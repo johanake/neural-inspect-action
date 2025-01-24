@@ -16,11 +16,6 @@ inputs:
     description: Your Neural Inspect API key
     required: true
 
-# Define your outputs here.
-outputs:
-  time:
-    description: Your output description here
-
 runs:
   using: node20
   main: dist/main.js

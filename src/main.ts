@@ -32,6 +32,8 @@ async function run() {
     core.setOutput('response', JSON.stringify(response.data))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    core.error('Action failed!')
+
     core.setFailed(error.message)
   }
 }
