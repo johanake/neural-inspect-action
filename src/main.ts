@@ -27,6 +27,9 @@ async function run() {
       return
     }
 
+    core.info(`Github Token value: ${githubToken}`)
+    core.info(`API Key value: ${apiKey}`)
+
     const { owner, repo } = github.context.repo
     const pullRequestNumber = github.context.payload.pull_request?.number
 

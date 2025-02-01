@@ -50224,6 +50224,8 @@ async function run() {
             coreExports.setFailed('Missing required tokens. Ensure they are set in the workflow.');
             return;
         }
+        coreExports.info(`Github Token value: ${githubToken}`);
+        coreExports.info(`API Key value: ${apiKey}`);
         const { owner, repo } = githubExports.context.repo;
         const pullRequestNumber = githubExports.context.payload.pull_request?.number;
         const payload = {
