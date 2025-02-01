@@ -16,15 +16,16 @@ async function run() {
 
     const payload = {
       gitHub: {
-        owner,
+        token: githubToken,
+        owner: owner,
         repository: repo,
-        pullRequestNumber
+        pullRequestNumber: pullRequestNumber
       },
-      apiKey
+      apiKey: apiKey
     }
 
     const response = await axios.post(
-      'http://api.neuralinspect.com/smart-review',
+      'https://api.neuralinspect.com/smart-review',
       payload
     )
 
