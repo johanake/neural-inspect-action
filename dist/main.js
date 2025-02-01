@@ -50209,6 +50209,7 @@ axios.default = axios;
 async function run() {
     try {
         coreExports.info('Starting Action!');
+        coreExports.info('This is v2!');
         const githubToken = coreExports.getInput('github_token', { required: true });
         const apiKey = coreExports.getInput('api_key', { required: true });
         const context = githubExports.context;
@@ -50216,17 +50217,20 @@ async function run() {
         const pullRequestNumber = context.payload.pull_request?.number;
         coreExports.info(`Found PR with number: ${context.payload.pull_request?.number}`);
         coreExports.info(`Github token: ${githubToken}`);
+        coreExports.info(`Environment GITHUB_TOKEN: ${process.env.GITHUB_TOKEN}`);
+        coreExports.info(`Environment GIT_TOKEN: ${process.env.GIT_TOKEN}`);
+        coreExports.info(`Input github_token: ${githubToken}`);
         const payload = {
             gitHub: {
+                githubToken,
                 owner,
-                repository: repo,
+                repo,
                 pullRequestNumber
             },
-            apiKey
+            apiKey: apiKey
         };
-        const response = await axios.post('http://api.neuralinspect.com/smart-review', payload);
+        const response = await axios.post('https://api.neuralinspect.com/smart-review', payload);
         coreExports.info(`Request sent successfully. Status: ${response.status}`);
-        coreExports.setOutput('response', JSON.stringify(response.data));
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (error) {
