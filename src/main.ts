@@ -13,6 +13,10 @@ async function run() {
 
     core.info(`Found PR with number: ${context.payload.pull_request?.number}`)
     core.info(`Github token: ${githubToken}`)
+    core.info(`Environment GITHUB_TOKEN: ${process.env.GITHUB_TOKEN}`);
+    core.info(`Environment GIT_TOKEN: ${process.env.GIT_TOKEN}`);
+
+    core.info(`Input github_token: ${githubToken}`);
 
     const payload = {
       gitHub: {
