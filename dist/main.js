@@ -50210,13 +50210,8 @@ async function run() {
     try {
         coreExports.info('Starting Action!');
         // Try getting from inputs
-        let token = coreExports.getInput('github_token');
-        let apiKey = coreExports.getInput('api_key');
-        // Fallback to environment variables
-        if (!token)
-            token = process.env.GIT_TOKEN ?? '';
-        if (!apiKey)
-            apiKey = process.env.API_KEY ?? '';
+        const token = coreExports.getInput('github_token');
+        const apiKey = coreExports.getInput('api_key');
         coreExports.info(`Found PR with number: ${githubExports.context.payload.pull_request?.number}`);
         coreExports.info(`Github Token: ${token ? 'Received ✅' : 'NULL ❌'}`);
         coreExports.info(`API Key: ${apiKey ? 'Received ✅' : 'NULL ❌'}`);

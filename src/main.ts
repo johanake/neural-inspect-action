@@ -7,12 +7,8 @@ async function run() {
     core.info('Starting Action!')
 
     // Try getting from inputs
-    let token = core.getInput('github_token')
-    let apiKey = core.getInput('api_key')
-
-    // Fallback to environment variables
-    if (!token) token = process.env.GIT_TOKEN ?? ''
-    if (!apiKey) apiKey = process.env.API_KEY ?? ''
+    const token = core.getInput('github_token')
+    const apiKey = core.getInput('api_key')
 
     core.info(
       `Found PR with number: ${github.context.payload.pull_request?.number}`
