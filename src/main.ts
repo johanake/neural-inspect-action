@@ -7,27 +7,27 @@ async function run() {
     core.info('Starting Action!')
 
     // Try getting from inputs
-    let githubToken = core.getInput('github_token')
+    let token = core.getInput('github_token')
     let apiKey = core.getInput('api_key')
 
     // Fallback to environment variables
-    if (!githubToken) githubToken = process.env.GIT_TOKEN ?? ''
+    if (!token) token = process.env.GIT_TOKEN ?? ''
     if (!apiKey) apiKey = process.env.API_KEY ?? ''
 
     core.info(
       `Found PR with number: ${github.context.payload.pull_request?.number}`
     )
-    core.info(`Github Token: ${githubToken ? 'Received ✅' : 'NULL ❌'}`)
+    core.info(`Github Token: ${token ? 'Received ✅' : 'NULL ❌'}`)
     core.info(`API Key: ${apiKey ? 'Received ✅' : 'NULL ❌'}`)
 
-    if (!githubToken || !apiKey) {
+    if (!token || !apiKey) {
       core.setFailed(
         'Missing required tokens. Ensure they are set in the workflow.'
       )
       return
     }
 
-    core.info(`Github Token value: ${githubToken}`)
+    core.info(`Github Token value: ${token}`)
     core.info(`API Key value: ${apiKey}`)
 
     const { owner, repo } = github.context.repo
@@ -35,9 +35,9 @@ async function run() {
 
     const payload = {
       gitHub: {
-        githubToken,
+        token,
         owner,
-        repo,
+        repository: repo,
         pullRequestNumber
       },
       apiKey: apiKey

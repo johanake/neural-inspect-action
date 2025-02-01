@@ -50210,29 +50210,29 @@ async function run() {
     try {
         coreExports.info('Starting Action!');
         // Try getting from inputs
-        let githubToken = coreExports.getInput('github_token');
+        let token = coreExports.getInput('github_token');
         let apiKey = coreExports.getInput('api_key');
         // Fallback to environment variables
-        if (!githubToken)
-            githubToken = process.env.GIT_TOKEN ?? '';
+        if (!token)
+            token = process.env.GIT_TOKEN ?? '';
         if (!apiKey)
             apiKey = process.env.API_KEY ?? '';
         coreExports.info(`Found PR with number: ${githubExports.context.payload.pull_request?.number}`);
-        coreExports.info(`Github Token: ${githubToken ? 'Received ✅' : 'NULL ❌'}`);
+        coreExports.info(`Github Token: ${token ? 'Received ✅' : 'NULL ❌'}`);
         coreExports.info(`API Key: ${apiKey ? 'Received ✅' : 'NULL ❌'}`);
-        if (!githubToken || !apiKey) {
+        if (!token || !apiKey) {
             coreExports.setFailed('Missing required tokens. Ensure they are set in the workflow.');
             return;
         }
-        coreExports.info(`Github Token value: ${githubToken}`);
+        coreExports.info(`Github Token value: ${token}`);
         coreExports.info(`API Key value: ${apiKey}`);
         const { owner, repo } = githubExports.context.repo;
         const pullRequestNumber = githubExports.context.payload.pull_request?.number;
         const payload = {
             gitHub: {
-                githubToken,
+                token,
                 owner,
-                repo,
+                repository: repo,
                 pullRequestNumber
             },
             apiKey: apiKey
