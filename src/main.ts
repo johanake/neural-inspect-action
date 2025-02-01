@@ -16,10 +16,10 @@ async function run() {
 
     const payload = {
       gitHub: {
-        token: githubToken,
-        owner: owner,
-        repository: repo,
-        pullRequestNumber: pullRequestNumber
+        githubToken,
+        owner,
+        repo,
+        pullRequestNumber
       },
       apiKey: apiKey
     }
