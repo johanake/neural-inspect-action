@@ -5,7 +5,7 @@ import axios from 'axios'
 async function run() {
   try {
     core.info('Starting Action!')
-    core.info('This is v2!')
+    core.info('This is v2.1!')
 
     const githubToken = core.getInput('github_token', { required: true })
     const apiKey = core.getInput('api_key', { required: true })
@@ -20,9 +20,11 @@ async function run() {
 
     core.info(`Input github_token: ${githubToken}`)
 
+    const gitToken: string | undefined = process.env.GIT_TOKEN
+
     const payload = {
       gitHub: {
-        githubToken,
+        gitToken,
         owner,
         repo,
         pullRequestNumber

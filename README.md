@@ -44,5 +44,6 @@ jobs:
 
 ## Publishing a New Release
 
-1. `git tag -a v1 -m "First stable release`
-2. `git push origin v1`
+1. `npm run bundle`
+2. `git tag -a v1 -m "First stable release`
+3. `git push origin v1`

@@ -50209,7 +50209,7 @@ axios.default = axios;
 async function run() {
     try {
         coreExports.info('Starting Action!');
-        coreExports.info('This is v2!');
+        coreExports.info('This is v2.1!');
         const githubToken = coreExports.getInput('github_token', { required: true });
         const apiKey = coreExports.getInput('api_key', { required: true });
         const context = githubExports.context;
@@ -50220,9 +50220,10 @@ async function run() {
         coreExports.info(`Environment GITHUB_TOKEN: ${process.env.GITHUB_TOKEN}`);
         coreExports.info(`Environment GIT_TOKEN: ${process.env.GIT_TOKEN}`);
         coreExports.info(`Input github_token: ${githubToken}`);
+        const gitToken = process.env.GIT_TOKEN;
         const payload = {
             gitHub: {
-                githubToken,
+                gitToken,
                 owner,
                 repo,
                 pullRequestNumber
