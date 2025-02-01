@@ -5,26 +5,34 @@ import axios from 'axios'
 async function run() {
   try {
     core.info('Starting Action!')
-    core.info('This is v2.1!')
 
-    const githubToken = core.getInput('github_token', { required: true })
-    const apiKey = core.getInput('api_key', { required: true })
-    const context = github.context
-    const { owner, repo } = context.repo
-    const pullRequestNumber = context.payload.pull_request?.number
+    // Try getting from inputs
+    let githubToken = core.getInput('github_token')
+    let apiKey = core.getInput('api_key')
 
-    core.info(`Found PR with number: ${context.payload.pull_request?.number}`)
-    core.info(`Github token: ${githubToken}`)
-    core.info(`Environment GITHUB_TOKEN: ${process.env.GITHUB_TOKEN}`)
-    core.info(`Environment GIT_TOKEN: ${process.env.GIT_TOKEN}`)
+    // Fallback to environment variables
+    if (!githubToken) githubToken = process.env.GIT_TOKEN ?? ''
+    if (!apiKey) apiKey = process.env.API_KEY ?? ''
 
-    core.info(`Input github_token: ${githubToken}`)
+    core.info(
+      `Found PR with number: ${github.context.payload.pull_request?.number}`
+    )
+    core.info(`Github Token: ${githubToken ? 'Received ✅' : 'NULL ❌'}`)
+    core.info(`API Key: ${apiKey ? 'Received ✅' : 'NULL ❌'}`)
 
-    const gitToken: string | undefined = process.env.GIT_TOKEN
+    if (!githubToken || !apiKey) {
+      core.setFailed(
+        'Missing required tokens. Ensure they are set in the workflow.'
+      )
+      return
+    }
+
+    const { owner, repo } = github.context.repo
+    const pullRequestNumber = github.context.payload.pull_request?.number
 
     const payload = {
       gitHub: {
-        gitToken,
+        githubToken,
         owner,
         repo,
         pullRequestNumber

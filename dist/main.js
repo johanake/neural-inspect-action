@@ -50209,21 +50209,26 @@ axios.default = axios;
 async function run() {
     try {
         coreExports.info('Starting Action!');
-        coreExports.info('This is v2.1!');
-        const githubToken = coreExports.getInput('github_token', { required: true });
-        const apiKey = coreExports.getInput('api_key', { required: true });
-        const context = githubExports.context;
-        const { owner, repo } = context.repo;
-        const pullRequestNumber = context.payload.pull_request?.number;
-        coreExports.info(`Found PR with number: ${context.payload.pull_request?.number}`);
-        coreExports.info(`Github token: ${githubToken}`);
-        coreExports.info(`Environment GITHUB_TOKEN: ${process.env.GITHUB_TOKEN}`);
-        coreExports.info(`Environment GIT_TOKEN: ${process.env.GIT_TOKEN}`);
-        coreExports.info(`Input github_token: ${githubToken}`);
-        const gitToken = process.env.GIT_TOKEN;
+        // Try getting from inputs
+        let githubToken = coreExports.getInput('github_token');
+        let apiKey = coreExports.getInput('api_key');
+        // Fallback to environment variables
+        if (!githubToken)
+            githubToken = process.env.GIT_TOKEN ?? '';
+        if (!apiKey)
+            apiKey = process.env.API_KEY ?? '';
+        coreExports.info(`Found PR with number: ${githubExports.context.payload.pull_request?.number}`);
+        coreExports.info(`Github Token: ${githubToken ? 'Received ✅' : 'NULL ❌'}`);
+        coreExports.info(`API Key: ${apiKey ? 'Received ✅' : 'NULL ❌'}`);
+        if (!githubToken || !apiKey) {
+            coreExports.setFailed('Missing required tokens. Ensure they are set in the workflow.');
+            return;
+        }
+        const { owner, repo } = githubExports.context.repo;
+        const pullRequestNumber = githubExports.context.payload.pull_request?.number;
         const payload = {
             gitHub: {
-                gitToken,
+                githubToken,
                 owner,
                 repo,
                 pullRequestNumber
