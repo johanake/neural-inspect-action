@@ -5,6 +5,8 @@ import axios from 'axios'
 async function run() {
   try {
     core.info('Starting Action!')
+    core.info('This is v2!')
+
     const githubToken = core.getInput('github_token', { required: true })
     const apiKey = core.getInput('api_key', { required: true })
     const context = github.context
@@ -13,10 +15,10 @@ async function run() {
 
     core.info(`Found PR with number: ${context.payload.pull_request?.number}`)
     core.info(`Github token: ${githubToken}`)
-    core.info(`Environment GITHUB_TOKEN: ${process.env.GITHUB_TOKEN}`);
-    core.info(`Environment GIT_TOKEN: ${process.env.GIT_TOKEN}`);
+    core.info(`Environment GITHUB_TOKEN: ${process.env.GITHUB_TOKEN}`)
+    core.info(`Environment GIT_TOKEN: ${process.env.GIT_TOKEN}`)
 
-    core.info(`Input github_token: ${githubToken}`);
+    core.info(`Input github_token: ${githubToken}`)
 
     const payload = {
       gitHub: {
